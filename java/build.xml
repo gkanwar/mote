@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="mote" basedir="." default="buildJar">
+  <!-- Init -->
+  <target name="init" description="Init properties and mkdirs">
+    <property name="project.root.dir" value="." />
+    <property name="project.src.basedir" value="${project.root.dir}/src/" />
+    <property name="class.dir" value="io/github/gkanwar/mote" />
+    <property name="project.src.dir" value="${project.src.basedir}/${class.dir}" />
+    <property name="project.classes.dir" value="${project.root.dir}/classes/" />
+    <property name="project.libs.dir" value="${project.root.dir}/libs/" />
+    <property name="package.dir" value="dist/" />
+    <property name="jarfile" value="${package.dir}/mote.jar" />
+    <mkdir dir="${package.dir}"/>
+    <mkdir dir="${project.classes.dir}"/>
+  </target>
+
+  <!-- Compile java sources -->
+  <target name="compile" depends="init">
+    <path id="id.compile.classpath">
+      <fileset dir="${project.libs.dir}" includes="*.jar" />
+    </path>
+    <javac srcdir="${project.src.dir}" destdir="${project.classes.dir}"
+           classpathref="id.compile.classpath"
+           includeantruntime="false" />
+  </target>
+
+  <target name="buildJar" depends="compile">
+    <jar jarfile="${jarfile}" basedir="${project.classes.dir}"/>
+  </target>
+
+  <target name="testmain" depends="compile">
+    <java classname="io.github.gkanwar.mote.TestMain" classpath="${project.classes.dir}" />
+  </target>
+
+</project>

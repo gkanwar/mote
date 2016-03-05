@@ -29,3 +29,7 @@
 
 # Emacs
 *~
+
+# Java
+java/classes
+java/dist
