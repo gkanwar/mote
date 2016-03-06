@@ -1,6 +1,8 @@
 package io.github.gkanwar.mote;
 
 import java.util.*;
+import org.scilab.forge.jlatexmath.*;
+import io.github.gkanwar.mote.expr.*;
 
 public class Context {
   private ScopeExpr globalScope;
@@ -20,6 +22,10 @@ public class Context {
 
   void setRoot(Expr root) {
     globalScope.setInner(root);
+  }
+
+  public void buildFormula(Formula f, RenderMap rm) {
+    globalScope.buildFormula(f, rm);
   }
 
   @Override

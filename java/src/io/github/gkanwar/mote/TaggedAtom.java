@@ -1,17 +1,15 @@
 package io.github.gkanwar.mote;
 
-import java.util.*;
-
 import org.scilab.forge.jlatexmath.*;
+import io.github.gkanwar.mote.expr.*;
 
 /**
  * Wrapper class to track atom rendering to Boxes.
  */
 public class TaggedAtom extends Atom {
   private Atom base;
-  private String tag;
-  // private Map<String, TrackingBox> tagMap;
-  private Map<String, Box> tagMap;
+  private Expr tag;
+  private RenderMap rm;
 
   /**
    * Wrapped values.
@@ -20,23 +18,22 @@ public class TaggedAtom extends Atom {
   public int type_limits;
   public int alignment;
   
-  public TaggedAtom(Atom base, String tag, Map<String, Box> tagMap) {
+  public TaggedAtom(Atom base, Expr tag, RenderMap rm) {
     this.base = base;
     this.tag = tag;
-    this.tagMap = tagMap;
+    this.rm = rm;
 
     type = base.type;
     type_limits = base.type_limits;
     alignment = base.alignment;
   }
 
+  @Override
   public Box createBox(TeXEnvironment env) {
     Box out = base.createBox(env);
-    // TrackingBox tb = new TrackingBox(out);
-    // tagMap.put(tag, tb);
-    tagMap.put(tag, out);
-    // return tb;
-    return out;
+    TrackingBox tb = new TrackingBox(out);
+    rm.put(tag, tb);
+    return tb;
   }
 
   @Override

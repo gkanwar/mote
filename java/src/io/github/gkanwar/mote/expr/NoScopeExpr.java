@@ -1,6 +1,7 @@
-package io.github.gkanwar.mote;
+package io.github.gkanwar.mote.expr;
 
 import java.util.*;
+import io.github.gkanwar.mote.*;
 
 public abstract class NoScopeExpr extends Expr {
   @Override

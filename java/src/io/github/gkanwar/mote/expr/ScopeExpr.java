@@ -1,6 +1,8 @@
-package io.github.gkanwar.mote;
+package io.github.gkanwar.mote.expr;
 
 import java.util.*;
+import io.github.gkanwar.mote.*;
+import org.scilab.forge.jlatexmath.*;
 
 public class ScopeExpr extends Expr {
   private Set<Var> scopedVars;
@@ -38,5 +40,10 @@ public class ScopeExpr extends Expr {
   @Override
   public Set<Var> getScopeVars() {
     return scopedVars;
+  }
+
+  @Override
+  public void buildFormula(Formula f, RenderMap rm) {
+    inner.buildFormula(f, rm);
   }
 }

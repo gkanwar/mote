@@ -7,6 +7,10 @@ public class Var {
     this.name = name;
   }
 
+  public char getSymbol() {
+    return name.charAt(0);
+  }
+
   @Override
   public String toString() {
     return name;
