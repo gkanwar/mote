@@ -82,7 +82,7 @@ public class TrackingBox extends Box {
     base.setShift(s);
   }
   public void draw(Graphics2D g2, float x, float y) {
-    System.out.println("Tracking draw: " + x + "," + y);
+    // System.out.println("Tracking draw: " + x + "," + y);
     lastX = x;
     lastY = y;
     lastW = width;
