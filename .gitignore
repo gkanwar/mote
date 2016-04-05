@@ -33,3 +33,6 @@
 # Java
 java/classes
 java/dist
+
+# Python
+*.pyc

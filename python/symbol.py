@@ -1,8 +1,15 @@
 import draw
+import unicodedata
 
 class Symbol:
     char = None
     def __init__(self, char):
+        assert isinstance(char, basestring)
+        if (len(char) > 1) and char[0] == '\\':
+            try:
+                char = unicodedata.lookup(char[1:])
+            except KeyError:
+                char = char[1:]
         self.char = char
 
     def draw(self, srf, pos):

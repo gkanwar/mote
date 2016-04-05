@@ -6,7 +6,8 @@ from util import Pos
 if __name__ == "__main__":
     x = VarAtom("x")
     y = VarAtom("y")
-    stmt = BinOpAtom("+", x, y)
+    stmt = UnaryOpAtom("\\integral", BinOpAtom("+", x, y))
+    
     b = stmt.render()
     draw.boxes = [b]
 
