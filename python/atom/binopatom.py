@@ -12,6 +12,7 @@ class BinOpAtom(Atom):
     l = None
     r = None
     def __init__(self, op, l, r):
+        super(BinOpAtom, self).__init__()
         # DEBUG assertions
         assert isinstance(op, basestring)
         assert isinstance(l, Atom)
@@ -28,3 +29,5 @@ class BinOpAtom(Atom):
         sym = Symbol(self.op)
         return buildHorizBox([self.l.render(), sym, self.r.render()])
                    
+    def __str__(self):
+        return "(" + str(self.l) + " " + self.op + " " + str(self.r) + ")"

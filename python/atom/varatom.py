@@ -10,6 +10,7 @@ A variable atom.
 class VarAtom(Atom):
     name = None
     def __init__(self, name):
+        super(VarAtom, self).__init__()
         self.name = name
 
     """
@@ -18,3 +19,6 @@ class VarAtom(Atom):
     def render(self):
         sym = Symbol(self.name)
         return buildHorizBox([sym])
+
+    def __str__(self):
+        return self.name
