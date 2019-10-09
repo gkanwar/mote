@@ -14,6 +14,8 @@ public class AddExpr extends NoScopeExpr {
     this.l = l;
     this.r = r;
     this.neg = neg;
+    l.parent = this;
+    r.parent = this;
   }
   
   @Override
@@ -28,5 +30,16 @@ public class AddExpr extends NoScopeExpr {
     l.buildFormula(f, rm);
     f.add(new TaggedAtom(SymbolAtom.get(exprType), (Expr)this, rm));
     r.buildFormula(f, rm);
+  }
+
+  @Override
+  public void pushSelectedDown() {
+    assert isSelected();
+    toggleSelected();
+
+    assert !l.isSelected();
+    assert !r.isSelected();
+    l.toggleSelected();
+    r.toggleSelected();
   }
 }

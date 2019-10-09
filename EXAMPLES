@@ -1,0 +1,33 @@
+Example 1
+=========
+k, q, p === 4-momenta, have 1 Lorentz index
+Integral_k[Integral_q[d^dk d^dq / (2PI)^2d * 1 / (k^2 * (k-q)^2 ... ]]
+
+* Variables have scope
+* Operators defined to commute in certain ways
+* Operators can be linear
+* Lorentz indices contraction
+* Define integral simplification forms
+* Gamma functions?
+
+
+Overall
+=======
+* Expression / equation tree
+* Global environment with symbolic bindings
+* Local scope symbolic bindings
+* Expression types
+
+
+First pass
+==========
+* Integrals
+* Arithmetic manipulation
+* Variables and scopes
+
+
+Second pass
+===========
+* Lorentz indices
+* Visualization
+* Stack manipulation

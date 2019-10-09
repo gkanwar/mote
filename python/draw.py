@@ -4,7 +4,7 @@ import pygame
 General draw API.
 """
 pygame.init()
-_screen = pygame.display.set_mode((150,50))
+_screen = pygame.display.set_mode((240,50))
 _srf = pygame.Surface(_screen.get_size()).convert()
 
 boxes = []

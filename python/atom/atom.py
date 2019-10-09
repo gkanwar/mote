@@ -20,3 +20,10 @@ class Atom(object):
     def render(self):
         pass
 
+    """
+    Clone this atom, avoiding any duplicate references where this may cause
+    an issue. Should be overridden by subclasses and implemented recursively.
+    """
+    def clone(self):
+        assert False, "Must override clone in subclasses."
+

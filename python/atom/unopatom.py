@@ -25,6 +25,9 @@ class UnaryOpAtom(Atom):
     def render(self):
         sym = Symbol(self.op)
         return buildHorizBox([sym, self.r.render()])
+
+    def clone(self):
+        return UnaryOpAtom(self.op, self.r.clone())
                    
     def __str__(self):
         return "(" + self.op + str(self.r) + ")"

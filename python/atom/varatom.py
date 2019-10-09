@@ -20,5 +20,8 @@ class VarAtom(Atom):
         sym = Symbol(self.name)
         return buildHorizBox([sym])
 
+    def clone(self):
+        return VarAtom(self.name)
+
     def __str__(self):
         return self.name

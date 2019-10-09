@@ -21,6 +21,19 @@ def console_thread():
             else:
                 i = int(tokens[1])
                 cmdq.put((tokens[0], i))
+        elif (tokens[0] == "dist_over"):
+            if len(tokens) < 3:
+                print "Needs 3 tokens."
+            else:
+                i1 = int(tokens[1])
+                i2 = int(tokens[2])
+                cmdq.put((tokens[0], i1, i2))
+        elif (tokens[0] == "print"):
+            if len(tokens) < 2:
+                print "Needs 2 tokens."
+            else:
+                i = int(tokens[1])
+                cmdq.put((tokens[0], i))
         elif (tokens[0] == "quit"):
             cmdq.put((tokens[0],))
 
@@ -29,7 +42,8 @@ if __name__ == "__main__":
     print "x", x.ident
     y = VarAtom("y")
     print "y", y.ident
-    stmt = UnaryOpAtom("\\integral", BinOpAtom("+", x, y))
+    stmt = UnaryOpAtom("\\integral", ProdAtom([
+        SumAtom([x, y]), SumAtom([y,x])]))
     print "stmt", stmt.ident
     
     b = stmt.render()

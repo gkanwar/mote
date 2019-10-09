@@ -93,6 +93,7 @@ public class TestMain extends JFrame {
           @Override
           public void actionPerformed(ActionEvent event) {
             System.out.println("Clicked: " + e);
+            e.toggleSelected();
           }
         });
 
