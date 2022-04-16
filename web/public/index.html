@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content="Mote App"/>
+    <title>Mote</title>
+    <link rel="stylesheet" href="/main.css"/>
+    <script type="module" src="/js/index.js"></script>
+  </head>
+  <body>
+    <dialog id="createSymbolDialog">
+      <form method="dialog">
+        <label>Symbol name:
+          <input type="text" name="symbolName" maxlength="10" autocomplete="off" required/>
+        </label>
+        <div>
+          <button id="cancelBtn" value="cancel">Cancel</button>
+          <button id="createBtn" value="create">Create</button>
+        </div>
+      </form>
+    </dialog>
+    <div id="content">
+      <div id="symbols">
+      </div>
+      <div id="main">
+      </div>
+    </div>
+  </body>
+</html>

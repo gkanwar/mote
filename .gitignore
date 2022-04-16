@@ -36,3 +36,6 @@ java/dist
 
 # Python
 *.pyc
+
+# JS/NPM stuff
+node_modules/
