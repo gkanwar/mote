@@ -1,4 +1,6 @@
-import {MathSymbol, addSymbol, addSymbolsListener, getSymbols} from './symbols.js';
+import {MathSymbol, addSymbol, addSymbolsListener, getSymbols, SymbolAction} from './symbols.js';
+import {renderSymbol, renderExpr} from './render_mathml.js';
+import {make_number_expr, make_symbol_expr, make_add_op, make_mul_op, make_sum_op, make_int_op, make_inf_op} from './expression.js';
 
 
 
@@ -10,29 +12,37 @@ function createSymbol(name: string) {
 function makeSymbolElt(symbol: MathSymbol) {
     const elt = document.createElement('div');
     elt.setAttribute('class', 'symbol');
-    elt.innerHTML = `<math><mrow><msub><mi class="symbol-id">${symbol.name}</mi><mi class="symbol-sub-id">${symbol.subName}</mi></msub></mrow></math>`;
+    elt.innerHTML = `<math><mrow>${renderSymbol(symbol)}</mrow></math>`;
     return elt;
 }
 
-function setupSymbolsFrame() {
-    const symbolsFrame = document.getElementById('symbols');
+// https://github.com/microsoft/TypeScript/issues/48267
+type HTMLDialogElementHACK = HTMLDialogElement & {
+    returnValue: string,
+    showModal: () => void
+};
 
-    const createSymbolDialog = document.getElementById('createSymbolDialog');
+function setupSymbolsFrame() {
+    const symbolsFrame = document.getElementById('symbols')!;
+
+    const createSymbolDialog = document.getElementById('createSymbolDialog') as HTMLDialogElementHACK;
+    
     createSymbolDialog.addEventListener('close', function(event) {
         if (createSymbolDialog.returnValue !== 'create') return;
-        const form = createSymbolDialog.querySelector('form');
-        createSymbol(form.querySelector('[name=symbolName]').value);
+        const form = createSymbolDialog.querySelector('form')!;
+        const inp = <HTMLInputElement>form.querySelector('[name=symbolName]')!;
+        createSymbol(inp.value);
         form.reset();
     });
 
     const symbolsList = document.createElement('div');
     symbolsList.setAttribute('id', 'symbolsList');
-    const addSymbolToList = function(symbol) {
+    const addSymbolToList = function(symbol: MathSymbol) {
         symbolsList.appendChild(makeSymbolElt(symbol));
     };
     getSymbols().forEach(addSymbolToList);
-    addSymbolsListener(function(event) {
-        if (event.hasOwnProperty('add')) {
+    addSymbolsListener(function(event: SymbolAction) {
+        if (event.add != null) {
             addSymbolToList(event.add);
         }
     });
@@ -47,6 +57,25 @@ function setupSymbolsFrame() {
     symbolsFrame.appendChild(button);
 }
 
+function setupMainFrame() {
+    const mainFrame = document.getElementById('main')!;
+
+    const exprDiv = document.createElement('div');
+    exprDiv.setAttribute('id', 'main-expr');
+    exprDiv.innerHTML = '<math>' + renderExpr(make_int_op(
+        make_mul_op([
+            make_add_op([
+                make_number_expr(1),
+                make_symbol_expr(getSymbols()[0])
+            ]),
+            make_inf_op(make_symbol_expr(getSymbols()[0]))
+        ]),
+        null, null
+    )) + '</math>';
+
+    mainFrame.appendChild(exprDiv);
+}
+
 function init() {
     addSymbol(new MathSymbol('x'));
     addSymbol(new MathSymbol('y'));
@@ -54,6 +83,7 @@ function init() {
     addSymbol(new MathSymbol('z'));
     addSymbol(new MathSymbol('x'));
     setupSymbolsFrame();
+    setupMainFrame();
     // const elt = document.getElementById('main');
     // if (elt) {
     //     elt.innerText = 'Hello, world???****?!';
